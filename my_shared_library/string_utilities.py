@@ -15,25 +15,25 @@ import string
 locale.setlocale(locale.LC_ALL, 'en_US')
 
 
-def getFormatted(InputNumber):
+def get_formatted(input_number):
     """
     Adds commas for every three 0s
-    :param InputNumber: input number
+    :param input_number: input number
     :return: string
     """
-    StringWithCommas = locale.format_string("%d", InputNumber, grouping = True)
-    return(StringWithCommas)
+    string_with_commas = locale.format_string("%d", input_number, grouping = True)
+    return string_with_commas
 
 
-def getDataFrameCount(DataFrame):
+def get_data_frame_count(data_frame):
     # ToDo: It's not a string utility. Refactor to aws utilities.
     """
     Prints the value counts for each column of a data frame.
-    :param DataFrame: input data frame
+    :param data_frame: input data frame
     :return: prints the value counts for each column
     """
-    for NextColumn in DataFrame.columns:
-        print(DataFrame.loc[:, NextColumn].value_counts().apply(getFormatted))
+    for NextColumn in data_frame.columns:
+        print(data_frame.loc[:, NextColumn].value_counts().apply(get_formatted))
         print("\n")
 
 
@@ -66,6 +66,7 @@ def get_s3_bucket_key(s3_path_without_file):
     _key = s3_path_without_file[(third_slash + 1):]
 
     return _bucket, _key
+
 
 def rand_str(string_length):
     """
