@@ -11,78 +11,111 @@ import os
 import pandas as pd
 from sqlalchemy import create_engine
 import pymysql
-import my_shared_library.string_utilities as su
-
-def get_engine(server = os.environ.get('mysql_server'),
-               db = os.environ.get('mysql_schema'),
-               user = os.environ.get('mysql_user'),
-               password = os.environ.get('mysql_password'),
-               port = '3306'):
-    """
-    Establish a connection to the mysql database. Please don't forget to use engine.close() after running queries.
-    :param server: name or ip address of the server
-    :param db: default database to use
-    :param user: username
-    :param password: password
-    :param port: MySQL database port. The default is 3306
-    :return: the active engine to the database
-    """
-    # ToDo: Convert it to a context manager that closes connection after use.
-    conn_str = 'mysql://%s:%s/%s?user=%s&password=%s' % \
-                (server, port, db, user, password)
-    pymysql.install_as_MySQLdb()
-    engine = create_engine(conn_str)
-    mysql_engine = engine.connect()
-    return mysql_engine
+from my_shared_library.string_utilities import StringUtilities
 
 
-def query(query_string, mysql_engine, chunk_size=None):
-    """
-    Sends a query and gets the data as a pandas dataframe; can read data in chucks
-    :param query_string: the string of the query to run
-    :param mysql_engine: the mysql engine that is created with get_engine
-    :param chunk_size: if the data is large to be read in one pass, chuck_size sets the number of records at each pass
-    :return: a pandas dataframe or an iterator to it
-    """
-    result = pd.read_sql(query_string, mysql_engine, chunksize=chunk_size)
-    return result
+class MySQLUtil:
 
+    def __init__(self, server=None, db=None, user=None, password=None, port='3306', verbose=None):
+        if server:
+            self.server = server
+        else:
+            try:
+                self.server = os.environ.get('mysql_server')
+            except KeyError:
+                print("Please pass server or define 'mysql_server' in .env file.")
+                raise
 
-def get_table_count(table_name, engine):
-    """
-    Gets the number of records in a table
-    :param table_name: name of the table
-    :param engine: the active engine to the MySQL database
-    :return: the number of records in the table
-    """
-    query_string = "SELECT count(*) FROM %s.%s" % table_name
-    count = query(query_string, engine)
-    count_string = su.getFormatted(count.iloc[0, 0])
-    print("Number of records in %s table is %s." % (table_name, count_string))
+        if db:
+            self.db = db
+        else:
+            try:
+                self.db = os.environ.get('mysql_schema')
+            except KeyError:
+                print("Please pass server or define 'mysql_schema' in .env file.")
+                raise
 
+        if user:
+            self.user = user
+        else:
+            try:
+                self.user = os.environ.get('mysql_user')
+            except KeyError:
+                print("Please pass server or define 'mysql_user' in .env file.")
+                raise
 
-def get_table_columns(table_name, engine):
-    """
-    gets the number of columns in a table
-    :param table_name: name of the table
-    :param engine: active engine to the MySQL database
-    :return: the number of columns in the table
-    """
-    query_string = "SHOW COLUMNS IN %s" % table_name
-    columns = query(query_string, engine)
-    print(columns)
+        if password:
+            self.password = password
+        else:
+            try:
+                self.password = os.environ.get('mysql_password')
+            except KeyError:
+                print("Please pass server or define 'mysql_password' in .env file.")
+                raise
 
+        self.port = port
+        self.engine = None
+        self.verbose = verbose
 
-def get_table(table_name, engine):
-    """
-    reads all contents of the table in one pass
-    :param table_name: name of the table
-    :param engine: the active MySQL engine
-    :return: a pandas dataframe
-    """
-    query_string = "SELECT * FROM %s" % table_name
-    table_data_frame = query(query_string, engine)
-    return(table_data_frame)
+    def __enter__(self):
+        conn_str = 'mysql://%s:%s/%s?user=%s&password=%s' % \
+                   (self.server, self.port, self.db, self.user, self.password)
+        pymysql.install_as_MySQLdb()
+        self.engine = create_engine(conn_str)
+        self.con = self.engine.connect()
+        if self.verbose:
+            print("Connected to database successfully.")
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.con.close()
+        if self.verbose:
+            print("Connection to mysql was closed.")
+
+    def query(self, query_string, chunk_size=None):
+        """
+        Sends a query and gets the data as a pandas dataframe; can read data in chucks
+        :param query_string: the string of the query to run
+        :param mysql_engine: the mysql engine that is created with get_engine
+        :param chunk_size: if the data is large to be read in one pass, chuck_size sets the number of records at each pass
+        :return: a pandas dataframe or an iterator to it
+        """
+        if chunk_size:
+            result = pd.read_sql(query_string, self.engine, chunksize=chunk_size)
+        else:
+            result = pd.read_sql(query_string, self.engine)
+        return result
+
+    def get_table_count(self, table_name):
+        """
+        Gets the number of records in a table
+        :param table_name: name of the table
+        :return: the number of records in the table
+        """
+        query_string = "SELECT count(*) FROM {0}".format(table_name)
+        count = self.query(query_string)
+        count_string = StringUtilities.get_formatted(count.iloc[0, 0])
+        return "Number of records in {0} table is {1}.".format(table_name, count_string)
+
+    def get_table_columns(self, table_name):
+        """
+        gets the number of columns in a table
+        :param table_name: name of the table\
+        :return: the number of columns in the table
+        """
+        query_string = "SHOW COLUMNS IN %s" % table_name
+        columns = self.query(query_string)
+        return columns
+
+    def get_table(self, table_name):
+        """
+        reads all contents of the table in one pass
+        :param table_name: name of the table
+        :return: a pandas dataframe
+        """
+        query_string = "SELECT * FROM %s" % table_name
+        table_data_frame = self.query(query_string, self.engine)
+        return table_data_frame
 
 
 if __name__ == "__main__":
