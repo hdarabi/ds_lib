@@ -12,14 +12,17 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
+
 setuptools.setup(
     name="my_shared_library",
-    version="0.0.1",
+    version="0.0.3",
+    install_requires=requirements,
     author="Hamid R. Darabi, Ph.D.",
-    author_email="***@***.com",
+    author_email="*****@*****.com",
     description="Includes all utility functions that makes my daily life easier.",
     long_description_content_type="text/markdown",
-    url="***",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
