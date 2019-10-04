@@ -13,7 +13,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="my_shared_library",
+    name="ds_lib",
     version="0.0.1",
     author="Hamid R. Darabi, Ph.D.",
     author_email="***@***.com",

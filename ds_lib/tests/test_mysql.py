@@ -8,7 +8,7 @@
 ################################################################################
 
 import unittest
-from my_shared_library.mysql import MySQLUtil
+from ds_lib.mysql import MySQLUtil
 from mock import Mock, patch
 
 

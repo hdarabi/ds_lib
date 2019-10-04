@@ -11,7 +11,7 @@ import os
 import pandas as pd
 from sqlalchemy import create_engine
 import pymysql
-import my_shared_library.string_utilities as su
+import ds_lib.string_utilities as su
 
 
 class MySQLUtil:

@@ -1,13 +1,13 @@
-# My Shared Library
+# Data Science Library
 
-This package is a simple one that helps in simplifying repetitive data science tasks.
+This aim of this package is a to automate and simplify repetitive data science tasks.
 
-# Instal Guide
+# Installation Guide
 
 Run the following commands
 
 ```
-git clone https://github.com/hdarabi/my_shared_library.git .
-cd my_shared_library
+git clone https://github.com/hdarabi/ds_lib.git .
+cd ds_lib
 python setup.py install
 ```
