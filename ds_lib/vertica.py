@@ -3,7 +3,7 @@
 # Description : The main script to provide connection to Vertica
 # Version     : 0.0.0
 # Created On  : 2019-05-10
-# Modified On : 2019-05-10
+# Modified On : 2019-10-04
 # Author      : Hamid R. Darabi, Ph.D.
 #*************************************************************************************************************
 
@@ -20,7 +20,7 @@ vertica_pass = os.getenv('VERTICA_PASS')
 vertica_db = os.getenv('VERTICA_DB')
 
 class Vertica:
-    def __init__(self, connection_parameters=None):
+    def __init__(self, connection_parameters=None, verbose=False):
         if not connection_parameters:
             self.conn_param = {
                 'host': vertica_host,
@@ -37,10 +37,14 @@ class Vertica:
             }
         else:
             self.conn_param = connection_parameters
+        self.verbose = verbose
 
     def __enter__(self, connection_parameters=None):
         self.__init__(connection_parameters)
         self.connect()
+        if self.verbose:
+            print(connection_parameters)
+
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
