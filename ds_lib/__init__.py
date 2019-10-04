@@ -7,4 +7,4 @@
 # Author      : Hamid R. Darabi, Ph.D.
 ################################################################################
 
-name = "my_shared_library"
+name = "ds_lib"
