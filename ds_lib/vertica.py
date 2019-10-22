@@ -11,29 +11,22 @@ import os
 import numpy as np
 import pandas as pd
 import vertica_python
-from dotenv import load_dotenv
-
-load_dotenv()
-vertica_host = os.getenv('VERTICA_HOST')
-vertica_user = os.getenv('VERTICA_USER')
-vertica_pass = os.getenv('VERTICA_PASS')
-vertica_db = os.getenv('VERTICA_DB')
 
 class Vertica:
     def __init__(self, connection_parameters=None, verbose=False):
         if not connection_parameters:
             self.conn_param = {
-                'host': vertica_host,
-                 'port': 5433,
-                 'user': vertica_user,
-                 'password': vertica_pass,
-                 'database': vertica_db,
-                 'session_label': 'my_session_label',
-                 'read_timeout': 6000,
-                 'unicode_error': 'strict',
-                 'ssl': False,
-                 'use_prepared_statements': False,
-                 'connection_timeout': 3000
+                'host': os.getenv('VERTICA_HOST'),
+                'port': 5433,
+                'user': os.getenv('VERTICA_USER'),
+                'password': os.getenv('VERTICA_PASS'),
+                'database': os.getenv('VERTICA_DB'),
+                'session_label': 'my_session_label',
+                'read_timeout': 6000,
+                'unicode_error': 'strict',
+                'ssl': False,
+                'use_prepared_statements': False,
+                'connection_timeout': 3000
             }
         else:
             self.conn_param = connection_parameters
