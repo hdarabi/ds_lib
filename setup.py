@@ -3,7 +3,7 @@
 # Description : The installer for the package.
 # Version     : 0.0.0
 # Created On  : 2019-01-10
-# Modified On : 2019-01-10
+# Modified On : 2019-11-05
 # Author      : Hamid R. Darabi, Ph.D.
 ################################################################################
 
@@ -14,7 +14,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ds_lib",
-    version="0.0.1",
+    version="0.0.2",
     author="Hamid R. Darabi, Ph.D.",
     author_email="***@***.com",
     description="Includes all utility functions that makes my daily life easier.",
