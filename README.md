@@ -19,5 +19,5 @@ After setting the .env file that includes required keys, you can use any databas
 ```
 query = "SELECT * FROM SAMPLE_TABLE LIMIT 1;"
 with Vertica() as v:
-    result = v.execute(query)
+    result = v.query(query)
 ```
