@@ -14,7 +14,14 @@ python setup.py install
 
 # Using Database Connection
 
-After setting the .env file that includes required keys, you can use any database connection as follows:
+After setting the .env file that includes required keys
+```
+from dotenv import load_dotenv
+load_dotenv()
+```
+
+you can use any database connection as follows:
+
 
 ```
 query = "SELECT * FROM SAMPLE_TABLE LIMIT 1;"
