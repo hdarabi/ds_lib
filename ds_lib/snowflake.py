@@ -1,9 +1,9 @@
 #*************************************************************************************************************
 # Name        : snowflake
 # Description : The main script to provide connection to SnowFlake
-# Version     : 0.0.0
+# Version     : 0.0.1
 # Created On  : 2019-10-04
-# Modified On : 2019-11-05
+# Modified On : 2019-11-26
 # Author      : Hamid R. Darabi, Ph.D.
 #*************************************************************************************************************
 
