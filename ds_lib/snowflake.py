@@ -44,7 +44,7 @@ class SnowFlake:
             password=self.conn_param['pass'], account=self.conn_param['account'])
         self.cursor = self.connection.cursor()
 
-    def execute(self, query, chunksize=None):
+    def query(self, query, chunksize=None):
         result = pd.read_sql(query, self.connection, chunksize=chunksize)
         if self.verbose:
             print("The shape of the input data is".format(result.shape))

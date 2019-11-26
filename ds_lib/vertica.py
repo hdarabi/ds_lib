@@ -48,7 +48,7 @@ class Vertica:
         self.connection = vertica_python.connect(**self.conn_param)
         self.cursor = self.connection.cursor()
 
-    def execute(self, query, chunksize=None):
+    def query(self, query, chunksize=None):
         result = pd.read_sql(query, self.connection, chunksize=chunksize)
         return result
 
