@@ -14,7 +14,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ds_lib",
-    version="0.0.2",
+    version="0.0.3",
     author="Hamid R. Darabi, Ph.D.",
     author_email="***@***.com",
     description="Includes all utility functions that makes my daily life easier.",
