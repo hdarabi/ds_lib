@@ -17,6 +17,7 @@ class AWSUtil:
         self.sess = boto3.session.Session(key, secret)
         self.s3_client = self.sess.client('s3')
         self.ec2_client = self.sess.client('ec2')
+        self.__dict__.update(kwargs)
 
     def get_tag(self, bucket, file_key_path, tag_name):
         tags = self.s3_client.get_object_tagging(Bucket=bucket, Key=file_key_path)['TagSet']
