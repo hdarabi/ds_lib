@@ -8,7 +8,21 @@
 ##############################################################################################################
 
 import time
+import functools
 import pandas as pd
+
+
+def f_timer(func):
+    """The decorator to time a function code"""
+    @functools.wraps(func)
+    def wrapper_f_timer(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        run_time = end_time - start_time
+        print("Finished {} in {:.6f} secs".format(func.__name__, run_time))
+        return result
+    return wrapper_f_timer
 
 
 class MyTimer():
@@ -59,3 +73,9 @@ if __name__ == '__main__':
     with MyTimer('test_timer', verbose=True) as t:
         t.checkpoint('task_one')
         test_function()
+
+    @f_timer
+    def test_function_two():
+        time.sleep(2)
+
+    test_function_two()
