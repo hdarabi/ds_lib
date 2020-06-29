@@ -10,8 +10,8 @@
 import os
 import pymysql
 import pandas as pd
-from sqlalchemy import create_engine
 import ds_lib.string_utils as su
+from sqlalchemy import create_engine
 
 
 class MySQLUtil:
@@ -84,6 +84,20 @@ class MySQLUtil:
             result = pd.read_sql(query_string, self.engine, chunksize=chunk_size)
         else:
             result = pd.read_sql(query_string, self.engine)
+        return result
+
+    def insert_df(self, df, table, chunk_size=None):
+        """
+        Inserts a dataframe to the mysql table
+        :param df: the dataframe to insert to the table
+        :param table: the table to write information to
+        :param chunk_size: the size of each chuck to insert
+        :return: results of inserting records in the database
+        """
+        if chunk_size:
+            result = df.to_sql(table, con=self.engine, if_exists='append', chunksize=chunk_size, index=False)
+        else:
+            result = df.to_sql(table, con=self.engine, if_exists='append', index=False)
         return result
 
     def get_table_count(self, table_name):
