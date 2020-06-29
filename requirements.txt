@@ -1,7 +1,7 @@
 numpy>=1.10.0
 pandas>=0.15.0
 python-dotenv==0.10.3
-snowflake==2.0.1
+snowflake-connector-python==2.0.1
 vertica_python==0.9.5
 pymysql==0.9.3
 sqlalchemy==1.2.7
