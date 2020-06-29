@@ -3,7 +3,7 @@
 # Description : A few utility functions for reading tables from mysql
 # Version     : 0.0.0
 # Created On  : 2019-01-10
-# Modified On : 2019-01-10
+# Modified On : 2020-06-29
 # Author      : Hamid R. Darabi, Ph.D.
 ################################################################################
 
@@ -11,7 +11,7 @@ import os
 import pymysql
 import pandas as pd
 from sqlalchemy import create_engine
-import ds_lib.string_utilities as su
+import ds_lib.string_utils as su
 
 
 class MySQLUtil:
