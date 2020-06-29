@@ -12,6 +12,7 @@ import numpy as np
 import pandas as pd
 import snowflake.connector
 
+
 class SnowFlake:
     def __init__(self, connection_parameters=None, verbose=False):
         if not connection_parameters:

@@ -8,9 +8,9 @@
 ################################################################################
 
 import os
+import pymysql
 import pandas as pd
 from sqlalchemy import create_engine
-import pymysql
 import ds_lib.string_utilities as su
 
 

@@ -7,10 +7,10 @@
 # Author      : Hamid R. Darabi, Ph.D.
 ################################################################################
 
-import numpy as np
-import pandas as pd
 import locale
 import string
+import numpy as np
+import pandas as pd
 
 locale.setlocale(locale.LC_ALL, 'en_US')
 
