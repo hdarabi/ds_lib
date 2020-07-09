@@ -12,6 +12,7 @@ import pymysql
 import pandas as pd
 import ds_lib.string_utils as su
 from sqlalchemy import create_engine
+from my_shared_library.string_utilities import StringUtilities
 
 
 class MySQLUtil:
@@ -108,7 +109,7 @@ class MySQLUtil:
         """
         query_string = "SELECT count(*) FROM {0}".format(table_name)
         count = self.query(query_string)
-        count_string = su.get_formatted(count.iloc[0, 0])
+        count_string = StringUtilities.get_formatted(count.iloc[0, 0])
         return "Number of records in {0} table is {1}.".format(table_name, count_string)
 
     def get_table_columns(self, table_name):
