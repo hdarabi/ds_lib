@@ -10,9 +10,8 @@
 import os
 import pymysql
 import pandas as pd
-import ds_lib.string_utils as su
 from sqlalchemy import create_engine
-from my_shared_library.string_utilities import StringUtilities
+from ds_lib.string_utils import StringUtilities
 
 
 class MySQLUtil:
