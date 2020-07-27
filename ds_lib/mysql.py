@@ -10,7 +10,7 @@
 import os
 import pymysql
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, engine
 from ds_lib.string_utils import StringUtilities
 
 
@@ -58,8 +58,10 @@ class MySQLUtil:
         self.verbose = verbose
 
     def __enter__(self):
-        conn_str = 'mysql://%s:%s/%s?user=%s&password=%s' % \
-                   (self.server, self.port, self.db, self.user, self.password)
+        conn_str = engine.url.URL(drivername="mysql+pymysql", username=self.user, password=self.password,
+            host=self.server, port=self.port, database=self.db)
+        if self.verbose:
+            print(conn_str)
         pymysql.install_as_MySQLdb()
         self.engine = create_engine(conn_str)
         self.con = self.engine.connect()
