@@ -32,8 +32,7 @@ class SnowFlake:
                     connection_parameters['SNOWFLAKE_PASS'])))
         self.verbose = verbose
 
-    def __enter__(self, connection_parameters=None):
-        self.__init__(connection_parameters)
+    def __enter__(self):
         self.connect()
         return self
 

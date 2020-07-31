@@ -33,11 +33,10 @@ class Vertica:
             self.conn_param = connection_parameters
         self.verbose = verbose
 
-    def __enter__(self, connection_parameters=None):
-        self.__init__(connection_parameters)
+    def __enter__(self):
         self.connect()
         if self.verbose:
-            print(connection_parameters)
+            print(self.conn_param)
 
         return self
 
