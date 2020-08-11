@@ -3,7 +3,7 @@
 # Description : A few utility functions for reading tables from mysql
 # Version     : 0.0.0
 # Created On  : 2019-01-10
-# Modified On : 2020-06-29
+# Modified On : 2020-08-11
 # Author      : Hamid R. Darabi, Ph.D.
 ################################################################################
 
@@ -86,6 +86,16 @@ class MySQLUtil:
             result = pd.read_sql(query_string, self.engine, chunksize=chunk_size)
         else:
             result = pd.read_sql(query_string, self.engine)
+        return result
+
+    def execute(self, query_string):
+        """
+        Executes the commands without any return records such as DELETE
+        :param query_string: the string of the query to run
+        :return: None
+        """
+        print('Please note this function is a handy one and does not follow security standards.')
+        result = self.con.execute(query_string)
         return result
 
     def insert_df(self, df, table, chunk_size=None):
