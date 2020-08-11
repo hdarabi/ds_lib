@@ -4,7 +4,8 @@
 # Version     : 0.0.5
 # Created On  : 2019-01-10
 # Modified On : 2020-08-11
-# Author      : Hamid R. Darabi, Ph.D.
+# Authors     : Hamid R. Darabi, Ph.D.
+#               Vaibhav Sharma
 ################################################################################
 
 import setuptools
@@ -15,7 +16,7 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="ds_lib",
     version="0.0.6",
-    author="Hamid R. Darabi, Ph.D.",
+    author="Hamid R. Darabi, Vaibhav Sharma",
     author_email="***@***.com",
     description="Includes all utility functions that makes my daily life easier.",
     long_description_content_type="text/markdown",
