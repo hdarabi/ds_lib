@@ -10,7 +10,7 @@
 import os
 import boto3
 
-class AWSUtil:
+class AWSUtils:
     def __init__(self, key, secret, **kwargs):
         self.key = key
         self.secret = secret

@@ -15,7 +15,7 @@ import pandas as pd
 locale.setlocale(locale.LC_ALL, 'en_US')
 
 
-class StringUtilities:
+class StringUtils:
 
     @staticmethod
     def get_formatted(cls, input_number):
