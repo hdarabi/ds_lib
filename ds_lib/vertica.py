@@ -1,9 +1,9 @@
 #*************************************************************************************************************
 # Name        : vertica
 # Description : The main script to provide connection to Vertica
-# Version     : 0.0.1
+# Version     : 0.0.2
 # Created On  : 2019-05-10
-# Modified On : 2019-11-26
+# Modified On : 2026-10-17
 # Author      : Hamid R. Darabi, Ph.D.
 #*************************************************************************************************************
 
@@ -34,9 +34,9 @@ class Vertica:
         self.verbose = verbose
 
     def __enter__(self):
-        self.connect()
         if self.verbose:
-            print(self.conn_param)
+            print({key: '*****' if key == 'password' else value for key, value in self.conn_param.items()})
+        self.connect()
 
         return self
 
@@ -52,7 +52,11 @@ class Vertica:
         return result
 
     def execute_no_value(self, query):
+        # vertica_python has a single cursor per connection and pd.read_sql closes it,
+        # so get it again (which re-opens it) and commit as vertica_python does not autocommit.
+        self.cursor = self.connection.cursor()
         self.cursor.execute(query)
+        self.connection.commit()
 
     def close(self):
         self.connection.close()
